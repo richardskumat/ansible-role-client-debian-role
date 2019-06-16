@@ -6,11 +6,11 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: desktop
+  - name: desktop_ct
     image: qwe1/debian9-contrib-nonfree:latest
     groups:
      - desktop
-  - name: laptop
+  - name: laptop_ct
     image: qwe1/debian9-contrib-nonfree:latest
     groups:
      - laptop
