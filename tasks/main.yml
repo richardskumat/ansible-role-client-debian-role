@@ -1,0 +1,19 @@
+---
+
+- name: Include overrides specific to Debian 9.
+  include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_distribution_major_version == "9"
+
+- name: include tasks specific to desktop pc
+  include_tasks: desktop.yml
+  when:
+    - form_factor == 'desktop'
+    - not form_factor == 'laptop'
+
+- name: include tasks specific to laptop pc
+  include_tasks: laptop.yml
+  when:
+    - form_factor == 'laptop'
+    - not form_factor == 'desktop'

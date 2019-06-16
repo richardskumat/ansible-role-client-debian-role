@@ -1,0 +1,29 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: desktop
+    image: debian:9
+  - name: laptop
+    image: debian:9
+provisioner:
+  name: ansible
+  log: true
+  inventory:
+    group_vars:
+      desktop:
+        form_factor: desktop
+        user: qwe
+      laptop:
+        form_factor: laptop
+        user: qwe
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

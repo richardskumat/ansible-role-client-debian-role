@@ -1,0 +1,194 @@
+---
+# all my clients device are debian stable
+# which atm is Stretch 9(2018-12-25)
+# buster 10 will be out in a year I'd say(2019-10, or dec)
+
+- name: Install xfce4 xfce4-goodies
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - xfce4
+   - xfce4-goodies
+
+- name: Install common desktop packages
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - keepassx
+   - qpdfview
+   - ristretto
+   - mousepad
+   - keepassx
+   - gnucash
+   - doublecmd-gtk
+   - doublecmd-help-en
+   - thunderbird
+   - k3b
+   - gitk
+
+- name: Install browser packages
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - firefox-esr
+   - chromium
+
+- name: Install utility packages
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - firejail
+   - gnome-disk-utility
+   - laptop-mode-tools
+   - xclip
+   - lvm2
+   - ntfs-3g
+   - p7zip
+   - p7zip-full
+   - scrot
+   - gparted
+
+- name: Install networking packages
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - freerdp-x11
+   - openssh-server
+   - openssh-client
+   - syncthing
+   - network-manager-gnome
+
+- name: Install automation packages
+  apt:
+   name: "{{ packages }}"
+   #default_release: "{{backports_distribution}}-backports"
+  vars:
+   packages:
+# https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+# needed lib to generate pass hashes for users
+# I could always use this from docker or python pip
+   - python-passlib
+   # https://molecule.readthedocs.io/en/stable/installation.html#ubuntu-16-x
+   # I think ansible needs to be compiled from pip
+   - libssl-dev
+   # https://github.com/MeetMe/newrelic-plugin-agent/issues/151
+   - python-dev
+   - vagrant-libvirt
+   # required for virtualenvs for ansible
+   - gcc
+
+- name: Install media related packages
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - vlc
+   - smplayer
+   - mpv
+   - youtube-dl
+   - pavucontrol
+
+- name: Install printing related packages
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - cups
+   - xsane
+
+# LO pulls in too much java packages I have no need for
+- name: Install libreoffice
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - libreoffice
+   #- libreoffice-pdfimport
+   #state: latest
+   #install_recommends: no
+
+- name: Install image and video editing related packages
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - obs-studio
+   - krita
+   - gimp
+   - kolourpaint4
+
+- name: Install KVM/qemu packages with virt-manager
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - virt-manager
+   - qemu
+   - qemu-kvm
+   - libvirt-daemon
+   # ovmf provides support for uefi booting vm-s
+   # useful for gpu passthrough
+   - ovmf
+
+- name: add qwe to libvirt group
+  user:
+   name: "{{ user }}"
+   groups: libvirt
+   append: yes
+   shell: /bin/bash
+   state: present
+
+# disable that dumb libreoffice logo
+# Before ansible 2.3, option 'dest', 'destfile' or 'name' was used instead of 'path'
+
+- name: Disable libreoffice logo and eula display
+  template:
+   src: templates/sofficerc.j2
+   dest: /etc/libreoffice/sofficerc
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+- name: create modprobe blacklist file to blacklist mei modules
+  template:
+   src: templates/blacklist.conf.j2
+   dest: /etc/modprobe.d/blacklist.conf
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+- name: ignore uas mod for seagate 8tb smr externals(bought around 2018 black friday)
+  template:
+   src: templates/ignore_uas.conf.j2
+   dest: /etc/modprobe.d/ignore_uas.conf
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+# systemd boot/shutdown timeout settings
+- name: systemd boot/shutdown timeout settings
+  template:
+   src: templates/system.conf.j2
+   dest: /etc/systemd/system.conf
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+# network config
+- name: create blank network interfaces file with backup
+  copy:
+   src: files/interfaces.conf
+   dest: /etc/network/interfaces
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes

@@ -1,0 +1,37 @@
+---
+- name: install non-free software
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   - firmware-amd-graphics
+   - intel-microcode
+   - unrar
+
+- name: create vfio.conf for gpu pass through
+  template:
+   src: templates/vfio_gpu.j2
+   dest: /etc/modprobe.d/vfio.conf
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+# then run update-grub
+- name: update-grub file
+  command: update-grub
+
+# Add vfio modules to initrd
+# so vfio mod can grab the vid card in time before amdgpu
+- name: Add vfio modules to initrd
+  template:
+   src: templates/initframs-modules.j2
+   dest: /etc/initramfs-tools/modules
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes 
+
+# then update initframs file
+- name: update initframs
+  command: update-initramfs -u  
