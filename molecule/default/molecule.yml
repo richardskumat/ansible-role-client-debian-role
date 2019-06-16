@@ -7,11 +7,11 @@ lint:
   name: yamllint
 platforms:
   - name: desktop
-    image: debian:9
+    image: qwe1/debian9-contrib-nonfree:latest
     groups:
      - desktop
   - name: laptop
-    image: debian:9
+    image: qwe1/debian9-contrib-nonfree:latest
     groups:
      - laptop
 provisioner:

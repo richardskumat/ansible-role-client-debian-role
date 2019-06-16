@@ -6,6 +6,7 @@
 - name: Install xfce4 xfce4-goodies
   apt:
    name: "{{ packages }}"
+   update_cache: yes
   vars:
    packages:
    - xfce4
