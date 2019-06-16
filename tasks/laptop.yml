@@ -26,13 +26,4 @@
     mode: 0644
     owner: root
     group: root
-    backup: yes   
-
-# laptop battery saving tasks
-
-# newer kernel for better battery life?
-# doesn't seem to matter on this laptop
-
-# configure some of the battery saving tasks
-
-# 
+    backup: yes

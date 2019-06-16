@@ -30,8 +30,8 @@
    owner: root
    group: root
    mode: 0644
-   backup: yes 
+   backup: yes
 
 # then update initframs file
 - name: update initframs
-  command: update-initramfs -u  
+  command: update-initramfs -u
