@@ -4,20 +4,16 @@
    name: "{{ packages }}"
   vars:
    packages:
-   # laptop doesn't need this
-   #- firmware-amd-graphics
-   - intel-microcode
-   - unrar
+    - intel-microcode
+    - unrar
 
 - name: install laptop battery saving tasks
   apt:
    name: "{{ packages }}"
   vars:
    packages:
-   # laptop doesn't need this
-   #- firmware-amd-graphics
-   - tlp
-   - powertop
+    - tlp
+    - powertop
 
 - name: Create /etc/default/tlp template
   template:

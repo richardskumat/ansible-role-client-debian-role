@@ -8,8 +8,12 @@ lint:
 platforms:
   - name: desktop
     image: debian:9
+    groups:
+     - desktop
   - name: laptop
     image: debian:9
+    groups:
+     - laptop
 provisioner:
   name: ansible
   log: true
