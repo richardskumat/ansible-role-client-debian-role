@@ -88,6 +88,8 @@
    - vagrant-libvirt
    # required for virtualenvs for ansible
    - gcc
+   # required for molecule vagrant/libvirt
+   - python-vagrant
 
 - name: Install media related packages
   apt:
