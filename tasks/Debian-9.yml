@@ -44,7 +44,6 @@
    packages:
    - firejail
    - gnome-disk-utility
-   - laptop-mode-tools
    - xclip
    - lvm2
    - ntfs-3g
@@ -52,6 +51,13 @@
    - p7zip-full
    - scrot
    - gparted
+
+- name: Remove laptop-mode-tools
+  apt:
+   name: laptop-mode-tools
+   state: absent
+   autoremove: yes
+
 
 - name: Install networking packages
   apt:
