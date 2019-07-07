@@ -16,10 +16,12 @@
    group: root
    mode: 0644
    backup: yes
+  register: vfio_result
 
 # then run update-grub
 - name: update-grub file
   command: update-grub
+  when: vfio_result.changed
 
 # Add vfio modules to initrd
 # so vfio mod can grab the vid card in time before amdgpu
@@ -31,7 +33,9 @@
    group: root
    mode: 0644
    backup: yes
+  register: initframs_results
 
 # then update initframs file
 - name: update initframs
   command: update-initramfs -u
+  when: initframs_results.changed
