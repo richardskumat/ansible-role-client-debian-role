@@ -22,6 +22,7 @@
 - name: update-grub file
   command: update-grub
   when: vfio_result.changed
+  ignore_errors: yes
 
 # Add vfio modules to initrd
 # so vfio mod can grab the vid card in time before amdgpu
@@ -39,3 +40,4 @@
 - name: update initframs
   command: update-initramfs -u
   when: initframs_results.changed
+  ignore_errors: yes
