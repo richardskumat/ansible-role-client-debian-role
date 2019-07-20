@@ -62,7 +62,7 @@
    name: "{{ packages }}"
   vars:
    packages:
-   - freerdp-x11
+   - freerdp2-x11
    - openssh-server
    - openssh-client
    - syncthing
