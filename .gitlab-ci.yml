@@ -9,6 +9,9 @@ variables:
   # https://gitlab.com/gitlab-org/gitlab-ce/issues/64959
   # 19.03 had some breaking changes compared to 18.09
   DOCKER_TLS_CERTDIR: ""
+  ROLE_NAME: ansible-role-client-debian-role
+  GALAXY_USERNAME: richardskumat
+  GALAXY_ROLENAME: ansible_role_client_debian_role
 
 
 services:
@@ -19,11 +22,16 @@ stages:
 
 before_script:
   - docker info
+  - ansible --version
+  - molecule --version
+  - cd ..
+  - cp -aR $ROLE_NAME $GALAXY_USERNAME.$GALAXY_ROLENAME
+  - cd $GALAXY_USERNAME.$GALAXY_ROLENAME
 
 test_d9:
   stage: test
   variables:
-    MOLECULE_DISTRO: "qwe1/debian-nonfree:9"
+    MOLECULE_DISTRO: "debian:9"
   script:
     - molecule converge || true
     - molecule test || true
@@ -31,7 +39,7 @@ test_d9:
 test_d10:
   stage: test
   variables:
-    MOLECULE_DISTRO: "qwe1/debian-nonfree:10"
+    MOLECULE_DISTRO: "debian:10"
   script:
     - molecule converge || true
     - molecule test || true

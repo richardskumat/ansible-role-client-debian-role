@@ -1,19 +1,19 @@
 ---
 form_factor: desktop
-DEVICES_TO_DISABLE_ON_STARTUP: "bluetooth wwan"
+DEVICES_TO_DISABLE_ON_STARTUP: "#bluetooth wwan"
 initframs_modules: [
-  "vfio",
-  "vfio_iommu_type1",
-  "vfio_pci",
-  "vfio_virqfd",
+  "#vfio",
+  "#vfio_iommu_type1",
+  "#vfio_pci",
+  "#vfio_virqfd",
 ]
 
 blacklist_modules: [
   "# intel me mods",
-  "blacklist mei",
-  "blacklist mei_me",
+  "#blacklist mei",
+  "#blacklist mei_me",
   "# iAMT Watchdog Device",
-  "blacklist mei_wdt",
+  "#blacklist mei_wdt",
   "#blacklist uas",
 ]
 
@@ -23,19 +23,19 @@ lo_logo: '0'
 
 # seagate externals
 external_drive_quirks: [
-  'options usb-storage quirks=0bc2:3343:u',
+  '#options usb-storage quirks=0bc2:3343:u',
   ]
 
 # systemd settings
 systemd_system_conf: [
-  'DefaultTimeoutStartSec=10s',
-  'DefaultTimeoutStopSec=10s',
+  '#DefaultTimeoutStartSec=10s',
+  '#DefaultTimeoutStopSec=10s',
 ]
 
 # vfio gpu passthrough
 vfio_gpu: [
   '# rx 480',
-  'options vfio-pci ids=1002:67df,1002:aaf0',
+  '#options vfio-pci ids=1002:67df,1002:aaf0',
   '# rx 460',
   '# options vfio-pci ids=1002:67ef,1002:aae0',
 ]
