@@ -1,5 +1,5 @@
 ---
-- name: install non-free software
+- name: install non-free software for laptop
   apt:
    name: "{{ packages }}"
   vars:
@@ -7,7 +7,7 @@
     - intel-microcode
     - unrar
 
-- name: install laptop battery saving tasks
+- name: install laptop battery saving packages
   apt:
    name: "{{ packages }}"
   vars:
@@ -15,7 +15,7 @@
     - tlp
     - powertop
 
-- name: Create /etc/default/tlp template
+- name: Template /etc/default/tlp
   template:
     src: templates/tlp.j2
     dest: /etc/default/tlp

@@ -66,8 +66,13 @@
    - freerdp-x11
    - openssh-server
    - openssh-client
-   - syncthing
    - network-manager-gnome
+
+- name: Remove syncthing from existing devices
+  apt:
+   name: syncthing
+   state: absent
+   autoremove: yes
 
 - name: Install automation packages
   apt:
@@ -75,20 +80,28 @@
    #default_release: "{{backports_distribution}}-backports"
   vars:
    packages:
-# https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
-# needed lib to generate pass hashes for users
-# I could always use this from docker or python pip
-   - python-passlib
    # https://molecule.readthedocs.io/en/stable/installation.html#ubuntu-16-x
    # I think ansible needs to be compiled from pip
    - libssl-dev
    # https://github.com/MeetMe/newrelic-plugin-agent/issues/151
    - python-dev
-   - vagrant-libvirt
    # required for virtualenvs for ansible
    - gcc
    # required for molecule vagrant/libvirt
+   - vagrant-libvirt
+
+- name: Remove unneeded automation packages
+  apt:
+   name: "{{ packages }}"
+  vars:
+   packages:
+   # https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+   # needed lib to generate pass hashes for users
+   # I could always use this from docker or python pip
+   - python-passlib
+   # add these to the python virtualenv instead
    - python-vagrant
+
 
 - name: Install media related packages
   apt:
@@ -109,16 +122,12 @@
    - cups
    - xsane
 
-# LO pulls in too much java packages I have no need for
 - name: Install libreoffice
   apt:
    name: "{{ packages }}"
   vars:
    packages:
    - libreoffice
-   #- libreoffice-pdfimport
-   #state: latest
-   #install_recommends: no
 
 - name: Install image and video editing related packages
   apt:
@@ -151,9 +160,6 @@
    shell: /bin/bash
    state: present
 
-# disable that dumb libreoffice logo
-# Before ansible 2.3, option 'dest', 'destfile' or 'name' was used instead of 'path'
-
 - name: Disable libreoffice logo and eula display
   template:
    src: templates/sofficerc.j2
@@ -172,7 +178,7 @@
    mode: 0644
    backup: yes
 
-- name: ignore uas mod for seagate 8tb smr externals(bought around 2018 black friday)
+- name: ignore uas mod for seagate 8tb smr externals
   template:
    src: templates/ignore_uas.conf.j2
    dest: /etc/modprobe.d/ignore_uas.conf
