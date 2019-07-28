@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: richardskumat
+  description: ansible role to install xfce4 client devices
+  company: none
+
+
+  license: GPLv3
+
+  min_ansible_version: 2.8
+
+
+  platforms:
+   - name: Debian
+
+
+  galaxy_tags: []
+
+
+dependencies: []
+
