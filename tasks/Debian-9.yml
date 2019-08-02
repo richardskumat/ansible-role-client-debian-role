@@ -84,7 +84,9 @@
    # I think ansible needs to be compiled from pip
    - libssl-dev
    # https://github.com/MeetMe/newrelic-plugin-agent/issues/151
+   # start using python3
    - python-dev
+   - python3-dev
    # required for virtualenvs for ansible
    - gcc
    # required for molecule vagrant/libvirt
