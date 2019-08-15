@@ -1,12 +1,10 @@
 ---
 - name: install non-free software for desktop
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - firmware-amd-graphics
-   - intel-microcode
-   - unrar
+   name:
+    - firmware-amd-graphics
+    - intel-microcode
+    - unrar
 
 - name: create vfio.conf for gpu pass through
   template:
@@ -17,13 +15,7 @@
    mode: 0644
    backup: yes
   register: vfio_result
-
-# then run update-grub
-- name: run command update-grub
-  command: update-grub
-  # skip for docker ct as there's no point in running
-  # update-grub in there
-  when: ansible_virtualization_type != "docker" and vfio_result.changed
+  notify: "update-initframs"
 
 # Add vfio modules to initrd
 # so vfio mod can grab the vid card in time before amdgpu
@@ -36,8 +28,4 @@
    mode: 0644
    backup: yes
   register: initframs_results
-
-# then update initframs file
-- name: update initframs
-  command: update-initramfs -u
-  when: initframs_results.changed
+  notify: "update-initframs"

@@ -11,11 +11,8 @@ galaxy_info:
 
 
   platforms:
-   - name: Debian
-
+    - name: Debian
 
   galaxy_tags: []
 
-
 dependencies: []
-

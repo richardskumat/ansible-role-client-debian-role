@@ -5,17 +5,17 @@ driver:
   name: docker
 lint:
   name: yamllint
+  options:
+    config-file: molecule/default/yaml-lint.yml
 platforms:
   - name: desktop_ct
-    #image: qwe1/debian9-contrib-nonfree:latest
     image: "${MOLECULE_DISTRO:-qwe1/debian-nonfree:9}"
     groups:
-     - desktop
+      - desktop
   - name: laptop_ct
-    #image: qwe1/debian9-contrib-nonfree:latest
     image: "${MOLECULE_DISTRO:-qwe1/debian-nonfree:9}"
     groups:
-     - laptop
+      - laptop
 provisioner:
   name: ansible
   log: true
@@ -29,6 +29,8 @@ provisioner:
         user: qwe
   lint:
     name: ansible-lint
+scenario:
+  name: default
 verifier:
   name: testinfra
   lint:

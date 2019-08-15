@@ -1,55 +1,44 @@
 ---
-# all my clients device are debian stable
-# which atm is Stretch 9(2018-12-25)
-# buster 10 will be out in a year I'd say(2019-10, or dec)
 
 - name: Install xfce4 xfce4-goodies
   apt:
-   name: "{{ packages }}"
    update_cache: yes
-  vars:
-   packages:
-   - xfce4
-   - xfce4-goodies
+   name:
+    - xfce4
+    - xfce4-goodies
 
 - name: Install common desktop packages
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - keepassxc
-   - qpdfview
-   - ristretto
-   - mousepad
-   - gnucash
-   - doublecmd-gtk
-   - doublecmd-help-en
-   - thunderbird
-   - k3b
-   - gitk
+   name:
+    - keepassxc
+    - qpdfview
+    - ristretto
+    - mousepad
+    - gnucash
+    - doublecmd-gtk
+    - doublecmd-help-en
+    - thunderbird
+    - k3b
+    - gitk
 
 - name: Install browser packages
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - firefox-esr
-   - chromium
+   name:
+    - firefox-esr
+    - chromium
 
 - name: Install utility packages
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - firejail
-   - gnome-disk-utility
-   - xclip
-   - lvm2
-   - ntfs-3g
-   - p7zip
-   - p7zip-full
-   - scrot
-   - gparted
+   name:
+    - firejail
+    - gnome-disk-utility
+    - xclip
+    - lvm2
+    - ntfs-3g
+    - p7zip
+    - p7zip-full
+    - scrot
+    - gparted
 
 - name: Remove laptop-mode-tools
   apt:
@@ -59,13 +48,11 @@
 
 - name: Install networking packages
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - freerdp2-x11
-   - openssh-server
-   - openssh-client
-   - network-manager-gnome
+   name:
+    - freerdp2-x11
+    - openssh-server
+    - openssh-client
+    - network-manager-gnome
 
 - name: Remove syncthing from existing devices
   apt:
@@ -75,80 +62,63 @@
 
 - name: Install automation packages
   apt:
-   name: "{{ packages }}"
-   #default_release: "{{backports_distribution}}-backports"
-  vars:
-   packages:
-   # https://molecule.readthedocs.io/en/stable/installation.html#ubuntu-16-x
-   # I think ansible needs to be compiled from pip
-   - libssl-dev
-   # https://github.com/MeetMe/newrelic-plugin-agent/issues/151
-   - python-dev
-   # required for virtualenvs for ansible
-   - gcc
-   # required for molecule vagrant/libvirt
-   - vagrant-libvirt
+   name:
+    - libssl-dev
+    # https://github.com/MeetMe/newrelic-plugin-agent/issues/151
+    - python-dev
+    # required for virtualenvs for ansible
+    - gcc
+    # required for molecule vagrant/libvirt
+    - vagrant-libvirt
 
 - name: Remove unneeded automation packages
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   # https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
-   # needed lib to generate pass hashes for users
-   # I could always use this from docker or python pip
-   - python-passlib
-   # add these to the python virtualenv instead
-   - python-vagrant
+   name:
+    # https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+    # needed lib to generate pass hashes for users
+    # I could always use this from docker or python pip
+    - python-passlib
+    # add these to the python virtualenv instead
+    - python-vagrant
 
 - name: Install media related packages
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - vlc
-   - smplayer
-   - mpv
-   - youtube-dl
-   - pavucontrol
+   name:
+    - vlc
+    - smplayer
+    - mpv
+    - youtube-dl
+    - pavucontrol
 
 - name: Install printing related packages
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - cups
-   - xsane
+   name:
+    - cups
+    - xsane
 
 - name: Install libreoffice
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - libreoffice
+   name:
+    - libreoffice
 
 - name: Install image and video editing related packages
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - obs-studio
-   - krita
-   - gimp
-   - kolourpaint4
+   name:
+    - obs-studio
+    - krita
+    - gimp
+    - kolourpaint4
 
 - name: Install KVM/qemu packages with virt-manager
   apt:
-   name: "{{ packages }}"
-  vars:
-   packages:
-   - virt-manager
-   - qemu
-   - qemu-kvm
-   - libvirt-daemon
-   # ovmf provides support for uefi booting vm-s
-   # useful for gpu passthrough
-   - ovmf
+   name:
+    - virt-manager
+    - qemu
+    - qemu-kvm
+    - libvirt-daemon
+    # ovmf provides support for uefi booting vm-s
+    # useful for gpu passthrough
+    - ovmf
 
 - name: add qwe to libvirt group
   user:

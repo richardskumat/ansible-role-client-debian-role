@@ -2,20 +2,20 @@
 - name: install non-free software for laptop
   apt:
    name:
-     - intel-microcode
-     - unrar
+    - intel-microcode
+    - unrar
 
 - name: install laptop battery saving packages
   apt:
    name:
-     - tlp
-     - powertop
+    - tlp
+    - powertop
 
 - name: Template /etc/default/tlp
   template:
-    src: templates/tlp.j2
-    dest: /etc/default/tlp
-    mode: 0644
-    owner: root
-    group: root
-    backup: yes
+   src: templates/tlp.j2
+   dest: /etc/default/tlp
+   mode: 0644
+   owner: root
+   group: root
+   backup: yes
