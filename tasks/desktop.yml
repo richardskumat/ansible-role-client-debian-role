@@ -13,7 +13,6 @@
    owner: root
    group: root
    mode: 0644
-   backup: yes
   register: vfio_result
   notify: "update-initframs"
 
@@ -26,6 +25,5 @@
    owner: root
    group: root
    mode: 0644
-   backup: yes
   register: initframs_results
   notify: "update-initframs"
