@@ -28,8 +28,8 @@ external_drive_quirks: [
 
 # systemd settings
 systemd_system_conf: [
-  '#DefaultTimeoutStartSec=10s',
-  '#DefaultTimeoutStopSec=10s',
+  '#DefaultTimeoutStartSec=30s',
+  '#DefaultTimeoutStopSec=30s',
 ]
 
 # vfio gpu passthrough
