@@ -14,9 +14,7 @@
     - qpdfview
     - ristretto
     - mousepad
-    - gnucash
     - doublecmd-gtk
-    - doublecmd-help-en
     - thunderbird
     - k3b
     - gitk
@@ -54,18 +52,12 @@
     - openssh-client
     - network-manager-gnome
 
-- name: Remove syncthing from existing devices
-  apt:
-   name: syncthing
-   state: absent
-   autoremove: yes
-
 - name: Install automation packages
   apt:
    name:
     - libssl-dev
     # https://github.com/MeetMe/newrelic-plugin-agent/issues/151
-    - python-dev
+    - python3-dev
     # required for virtualenvs for ansible
     - gcc
     # required for molecule vagrant/libvirt
@@ -77,9 +69,9 @@
     # https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
     # needed lib to generate pass hashes for users
     # I could always use this from docker or python pip
-    - python-passlib
+    - python3-passlib
     # add these to the python virtualenv instead
-    - python-vagrant
+    - python3-vagrant
 
 - name: Install media related packages
   apt:
