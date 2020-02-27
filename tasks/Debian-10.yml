@@ -92,6 +92,9 @@
   apt:
    name:
     - libreoffice
+    - libreoffice-style-colibre
+    - libreoffice-style-tango
+   install_recommends: 'no'
 
 - name: Install image and video editing related packages
   apt:
