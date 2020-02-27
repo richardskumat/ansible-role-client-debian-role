@@ -13,7 +13,6 @@ platforms:
     privileged: true
     pre_build_image: true
     command: ""
-    pull: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     groups:
@@ -23,7 +22,6 @@ platforms:
     privileged: true
     pre_build_image: true
     command: ""
-    pull: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     groups:
@@ -33,8 +31,6 @@ provisioner:
   # log: true
   inventory:
     group_vars:
-      all:
-        ansible_python_interpreter: /usr/bin/python3
       desktop:
         form_factor: desktop
         user: qwe
