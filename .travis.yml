@@ -9,8 +9,8 @@ env:
     - GALAXY_USERNAME: richardskumat
     - GALAXY_ROLENAME: ansible_role_client_debian_role
   matrix:
-    - MOLECULE_DISTRO: qwe1/debian-nonfree:9
-    - MOLECULE_DISTRO: qwe1/debian-nonfree:10
+    - MOLECULE_DISTRO: qwe1/docker-debian:9-molecule
+    - MOLECULE_DISTRO: qwe1/docker-debian:10-molecule
 
 install:
   # Install test dependencies.
