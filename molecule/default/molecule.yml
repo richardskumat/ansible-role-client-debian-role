@@ -28,7 +28,7 @@ platforms:
       - laptop
 provisioner:
   name: ansible
-  # log: true
+  log: true
   inventory:
     group_vars:
       desktop:
