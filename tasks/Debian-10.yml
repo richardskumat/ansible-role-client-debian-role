@@ -115,7 +115,7 @@
     # useful for gpu passthrough
     - ovmf
 
-- name: add qwe to libvirt group
+- name: add user to libvirt group
   user:
    name: "{{ user }}"
    groups: libvirt

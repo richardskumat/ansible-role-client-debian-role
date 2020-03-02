@@ -9,7 +9,6 @@ env:
     - GALAXY_USERNAME: richardskumat
     - GALAXY_ROLENAME: ansible_role_client_debian_role
   matrix:
-    - MOLECULE_DISTRO: qwe1/docker-debian:9-nonfree-molecule
     - MOLECULE_DISTRO: qwe1/docker-debian:10-nonfree-molecule
 
 install:
