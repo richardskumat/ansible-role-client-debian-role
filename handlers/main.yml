@@ -9,6 +9,6 @@
 
 # then update initframs file
 - name: update initframs
-  command: update-initramfs -u
+  command: update-initramfs -u -k all
   when: initframs_results.changed
   listen: update-initframs
