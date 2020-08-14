@@ -5,13 +5,18 @@ services: docker
 
 env:
   global:
-    # https://docs.docker.com/engine/api/
-    - DOCKER_API_VERSION: 1.38
     - ROLE_NAME: ansible-role-client-debian-role
     - GALAXY_USERNAME: richardskumat
     - GALAXY_ROLENAME: ansible_role_client_debian_role
   matrix:
     - MOLECULE_DISTRO: qwe1/docker-debian:10-nonfree-molecule
+
+before_install:
+  # https://docs.travis-ci.com/user/docker/
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 
 install:
   # Install test dependencies.
