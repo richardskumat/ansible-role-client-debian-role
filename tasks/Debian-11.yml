@@ -83,7 +83,10 @@
    name:
     - libreoffice
     - libreoffice-style-colibre
-    - libreoffice-style-tango
+    - libreoffice-style-elementary
+    - libreoffice-style-karasa-jaga
+    - libreoffice-style-sifr
+    - libreoffice-style-sukapura
    install_recommends: 'no'
 
 - name: Install image and video editing related packages
@@ -98,8 +101,6 @@
   apt:
    name:
     - virt-manager
-    - qemu
-    - qemu-kvm
     - libvirt-daemon
     # ovmf provides support for uefi booting vm-s
     # useful for gpu passthrough
