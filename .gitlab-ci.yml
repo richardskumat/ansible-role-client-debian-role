@@ -22,7 +22,7 @@ before_script:
   - cp -aR $ROLE_NAME $GALAXY_USERNAME.$GALAXY_ROLENAME
   - cd $GALAXY_USERNAME.$GALAXY_ROLENAME
 
-test_d10:
+test_d11:
   stage: test
   variables:
     MOLECULE_DISTRO: "qwe1/docker-debian:11-nonfree-molecule"
