@@ -1,6 +1,5 @@
 ---
 form_factor: desktop
-DEVICES_TO_DISABLE_ON_STARTUP: "#bluetooth wwan"
 
 blacklist_modules: [
   "# intel me mods",
