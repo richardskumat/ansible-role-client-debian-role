@@ -1,19 +1,19 @@
 ---
+# i have an old laptop with an intel cpu yay
 - name: install non-free software for laptop
   apt:
    name:
     - intel-microcode
-    - unrar
 
-# either tlp or powertop caps intel e1000e kmod to 100mbps instead of 1gbps
-- name: remove laptop battery saving packages
-  apt:
-   name:
-    - tlp
-    - powertop
-   state: absent
+# either tlp or powertop used to cap intel on deb10 e1000e kmod to 100mbps instead of 1gbps
+# - name: remove laptop battery saving packages
+#  apt:
+#   name:
+#    - tlp
+#    - powertop
+#   state: absent
 
-- name: Remove
-  file:
-   path: /etc/default/tlp
-   state: absent
+# - name: Remove
+#  file:
+#   path: /etc/default/tlp
+#   state: absent

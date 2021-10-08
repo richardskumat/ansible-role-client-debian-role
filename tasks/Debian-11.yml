@@ -1,0 +1,161 @@
+---
+
+- name: Install xfce4 xfce4-goodies
+  apt:
+   update_cache: yes
+   name:
+    - xfce4
+    - xfce4-goodies
+
+- name: Install common desktop packages
+  apt:
+   name:
+    - keepassxc
+    - qpdfview
+    - ristretto
+    - mousepad
+    - doublecmd-gtk
+    - thunderbird
+    - k3b
+    - gitk
+
+- name: Install browser packages
+  apt:
+   name:
+    - firefox-esr
+    - chromium
+
+- name: Install utility packages
+  apt:
+   name:
+    - firejail
+    - gnome-disk-utility
+    - xclip
+    - lvm2
+    - ntfs-3g
+    - p7zip
+    - p7zip-full
+    - scrot
+    - gparted
+
+- name: Remove laptop-mode-tools
+  apt:
+   name: laptop-mode-tools
+   state: absent
+   autoremove: yes
+
+- name: Install networking packages
+  apt:
+   name:
+    - freerdp2-x11
+    - openssh-server
+    - openssh-client
+    - network-manager-gnome
+
+- name: Install automation packages
+  apt:
+   name:
+    - libssl-dev
+    # https://github.com/MeetMe/newrelic-plugin-agent/issues/151
+    - python3-dev
+    # required for virtualenvs for ansible
+    - gcc
+    # required for molecule vagrant/libvirt
+    - vagrant-libvirt
+
+- name: Install media related packages
+  apt:
+   name:
+    - vlc
+    - smplayer
+    - mpv
+    - youtube-dl
+    - pavucontrol
+
+- name: Install printing related packages
+  apt:
+   name:
+    - cups
+    - xsane
+
+- name: Install libreoffice
+  apt:
+   name:
+    - libreoffice
+    - libreoffice-style-colibre
+    - libreoffice-style-tango
+   install_recommends: 'no'
+
+- name: Install image and video editing related packages
+  apt:
+   name:
+    - obs-studio
+    - krita
+    - gimp
+    - kolourpaint4
+
+- name: Install KVM/qemu packages with virt-manager
+  apt:
+   name:
+    - virt-manager
+    - qemu
+    - qemu-kvm
+    - libvirt-daemon
+    # ovmf provides support for uefi booting vm-s
+    # useful for gpu passthrough
+    - ovmf
+
+- name: add user to libvirt group
+  user:
+   name: "{{ user }}"
+   groups: libvirt
+   append: yes
+   shell: /bin/bash
+   state: present
+
+- name: Disable libreoffice logo and eula display
+  template:
+   src: templates/sofficerc.j2
+   dest: /etc/libreoffice/sofficerc
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+- name: create modprobe blacklist file to blacklist mei modules
+  template:
+   src: templates/blacklist.conf.j2
+   dest: /etc/modprobe.d/blacklist.conf
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+- name: ignore uas mod for seagate 8tb smr externals
+  template:
+   src: templates/ignore_uas.conf.j2
+   dest: /etc/modprobe.d/ignore_uas.conf
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+# systemd boot/shutdown timeout settings
+- name: systemd boot/shutdown timeout settings
+  template:
+   src: templates/system.conf.j2
+   dest: /etc/systemd/system.conf
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes
+
+# network config
+- name: create blank network interfaces file with backup
+  copy:
+   src: files/interfaces.conf
+   dest: /etc/network/interfaces
+   owner: root
+   group: root
+   mode: 0644
+   backup: yes

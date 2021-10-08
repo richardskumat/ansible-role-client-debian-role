@@ -1,0 +1,22 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: local build
+    image: qwe1/dind-ansible-molecule:2.9-root
+    volumes:
+      - name: dsock
+        path: /var/run/docker.sock
+    commands:
+      - ls -lah
+      - pwd
+      # I really need some workaround for this nonsense
+      - mkdir -p ~/.ansible/roles && cp -aR "$(pwd)" ~/.ansible/roles/richardskumat.ansible_role_client_debian_role
+      - molecule test
+
+volumes:
+  - name: dsock
+    host:
+      path: /var/run/docker.sock

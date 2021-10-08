@@ -3,8 +3,9 @@ ansible-role-client-debian-role
 
 Sets up a linux xfce4 desktop environment with my preferences.
 
-There's separate tasks for setting a desktop with 2 gpu-s for gpu passthrough and
-there's a different task to setup a laptop.
+I thought about setting up a separate role for each major task group this
+role currently has with the release of Debian 11, but since it's a
+personal role I'm not really interested in doing so.
 
 Requirements
 ------------
