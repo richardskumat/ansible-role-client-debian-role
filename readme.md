@@ -12,7 +12,7 @@ Requirements
 
 Tested on:
 
-ansible > 2.8
+ansible > 2.9
 
 Role Variables
 --------------
@@ -23,23 +23,6 @@ form_factor: desktop
 
 Separate tasks based on device form factor. In my case, it's only two devices, so
 valid values are 'desktop' or 'laptop'.
-
-```
-DEVICES_TO_DISABLE_ON_STARTUP: "#bluetooth wwan"
-```
-
-This is a value that templates /etc/default/tlp for a laptop task.
-
-```
-initframs_modules: [
-  "#vfio",
-  "#vfio_iommu_type1",
-  "#vfio_pci",
-  "#vfio_virqfd",
-]
-```
-
-These modules are required for gpu passthrough. Used in a templating task.
 
 
 ```
@@ -83,22 +66,6 @@ systemd_system_conf: [
 ]
 
 Set some values for /etc/systemd/system.conf in a templating task.
-
-# vfio gpu passthrough
-vfio_gpu: [
-  '# rx 480',
-  '#options vfio-pci ids=1002:67df,1002:aaf0',
-  '# rx 460',
-  '# options vfio-pci ids=1002:67ef,1002:aae0',
-]
-```
-
-GPU vendor:product id needed for gpu passthrough.
-
-The values for the gpu sound card are also required for this to work.
-
-Eg in virt-manager, both the gpu and the sound card need to be added for a vm
-to work.
 
 Dependencies
 ------------
