@@ -5,4 +5,5 @@
   apt:
    name:
     - firmware-amd-graphics
+    - xserver-xorg-video-amdgpu
     - intel-microcode
