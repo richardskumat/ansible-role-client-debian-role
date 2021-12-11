@@ -24,3 +24,9 @@ systemd_system_conf: [
   '#DefaultTimeoutStartSec=30s',
   '#DefaultTimeoutStopSec=30s',
 ]
+
+# default locales to be generated
+locales_gend: [
+  'en_US.UTF-8 UTF-8',
+  'en_GB.UTF-8 UTF-8',
+]

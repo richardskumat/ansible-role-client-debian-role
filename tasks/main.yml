@@ -1,10 +1,9 @@
 ---
 
-- name: Include overrides specific to Debian 11.
-  include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+- name: Include overrides specific to Debian
+  include_tasks: "{{ ansible_distribution }}.yml"
   when:
     - ansible_distribution == 'Debian'
-    - ansible_distribution_major_version == "11"
 
 - name: include tasks specific to desktop pc
   include_tasks: desktop.yml

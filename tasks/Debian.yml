@@ -19,11 +19,11 @@
     - k3b
     - gitk
 
+# no longer install chromium as it's outdated on debian
 - name: Install browser packages
   apt:
    name:
     - firefox-esr
-    - chromium
 
 - name: Install utility packages
   apt:
@@ -37,12 +37,6 @@
     - p7zip-full
     - scrot
     - gparted
-
-- name: Remove laptop-mode-tools
-  apt:
-   name: laptop-mode-tools
-   state: absent
-   autoremove: yes
 
 - name: Install networking packages
   apt:
@@ -106,6 +100,15 @@
     # useful for gpu passthrough
     - ovmf
 
+- name: Remove certain packages
+  apt:
+   name:
+    - laptop-mode-tools
+    - chromium
+    - gnome-keyring
+   state: absent
+   autoremove: yes
+
 - name: add user to libvirt group
   user:
    name: "{{ user }}"
@@ -160,3 +163,14 @@
    group: root
    mode: 0644
    backup: yes
+
+# conf locales
+- name: template /etc/locale.gen
+  template:
+   src: templates/locale.gen.j2
+   dest: /etc/locale.gen
+   owner: root
+   group: root
+   mode: 0644
+  register: locale_gen
+  notify: locale-gen

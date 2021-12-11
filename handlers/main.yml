@@ -12,3 +12,8 @@
   command: update-initramfs -u -k all
   when: initframs_results.changed
   listen: update-initframs
+
+- name: run locale-gen
+  command: locale-gen
+  when: locale_gen.changed
+  listen: locale-gen
