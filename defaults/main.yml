@@ -42,3 +42,10 @@ vfio_gpu: [
   '# rx 460',
   '# options vfio-pci ids=1002:67ef,1002:aae0',
 ]
+
+initframs_modules: [
+  '# vfio',
+  '# vfio_iommu_type1',
+  '# vfio_pci',
+  '# vfio_virqfd',
+]
