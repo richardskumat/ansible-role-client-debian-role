@@ -30,3 +30,15 @@ locales_gend: [
   'en_US.UTF-8 UTF-8',
   'en_GB.UTF-8 UTF-8',
 ]
+
+# vfio gpu passthrough
+vfio_gpu: [
+  '# adding commented out softdep lines as debian buster seems to require it',
+  '# softdep lines were not needed on stretch though',
+  '#softdep amdgpu pre: vfio-pci',
+  '#softdep radeon pre: vfio-pci',
+  '# rx 480',
+  '#options vfio-pci ids=1002:67df,1002:aaf0',
+  '# rx 460',
+  '# options vfio-pci ids=1002:67ef,1002:aae0',
+]
