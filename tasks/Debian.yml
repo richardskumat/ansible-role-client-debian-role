@@ -88,7 +88,9 @@
     - libreoffice-style-karasa-jaga
     - libreoffice-style-sifr
     - libreoffice-style-sukapura
-   install_recommends: 'no'
+   # needs the extra packages from recommends otherwise
+   # some sheets looks awful
+   install_recommends: 'yes'
 
 - name: Install image and video editing related packages
   apt:
