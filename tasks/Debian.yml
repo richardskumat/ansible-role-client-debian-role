@@ -113,7 +113,6 @@
   apt:
    name:
     - laptop-mode-tools
-    - chromium
     - gnome-keyring
    state: absent
    autoremove: yes
