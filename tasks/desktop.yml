@@ -1,34 +1,34 @@
 ---
 # my desktop no longer has 2 gpu-s, so I can remove the gpu/vfio passthrough tasks
 # i have an old desktop with an intel cpu & amd gpu yay
-- name: install non-free software for desktop
-  apt:
+- name: Install non-free software for desktop
+  ansible.builtin.apt:
    name:
     - firmware-amd-graphics
     - xserver-xorg-video-amdgpu
     - intel-microcode
 
-- name: create vfio.conf for gpu pass through
-  template:
-   src: templates/vfio_gpu.j2
-   dest: /etc/modprobe.d/vfio.conf
-   owner: root
-   group: root
-   mode: 0644
-  register: vfio_result
-  notify: "update-initframs"
+# - name: Create vfio.conf for gpu pass through
+#  ansible.builtin.template:
+#   src: templates/vfio_gpu.j2
+#   dest: /etc/modprobe.d/vfio.conf
+#   owner: root
+#   group: root
+#   mode: 0644
+#  register: vfio_result
+#  notify: "update-initframs"
 
 # Add vfio modules to initrd
 # so vfio mod can grab the gpu in time before amdgpu
 # buster requires adding softdep on vfio-pci
 # otherwise system grabs the graphics controller for amdgpu
 # while vfio-pci only grabs the sound card on the gpu
-- name: Add vfio modules to initrd
-  template:
-   src: templates/initframs-modules.j2
-   dest: /etc/initramfs-tools/modules
-   owner: root
-   group: root
-   mode: 0644
-  register: initframs_results
-  notify: "update-initframs"
+# - name: Add vfio modules to initrd
+#  ansible.builtin.template:
+#   src: templates/initframs-modules.j2
+#   dest: /etc/initramfs-tools/modules
+#   owner: root
+#   group: root
+#   mode: 0644
+#  register: initframs_results
+#  notify: "update-initframs"

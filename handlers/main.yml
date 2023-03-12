@@ -1,19 +1,19 @@
 ---
 # then run update-grub
-- name: run command update-grub
-  command: update-grub
+- name: Run command update-grub
+  ansible.builtin.command: update-grub
   # skip for docker ct as there's no point in running
   # update-grub in there
   when: ansible_virtualization_type != "docker" and vfio_result.changed
-  listen: update-initframs
+  listen: "update-initframs"
 
 # then update initframs file
-- name: update initframs
-  command: update-initramfs -u -k all
+- name: Update initframs
+  ansible.builtin.command: update-initramfs -u -k all
   when: initframs_results.changed
-  listen: update-initframs
+  listen: "update-initframs"
 
-- name: run locale-gen
-  command: locale-gen
+- name: Run locale-gen
+  ansible.builtin.command: locale-gen
   when: locale_gen.changed
-  listen: locale-gen
+  listen: "locale-gen"

@@ -1,14 +1,14 @@
 ---
 
 - name: Install xfce4 xfce4-goodies
-  apt:
+  ansible.builtin.apt:
    update_cache: yes
    name:
     - xfce4
     - xfce4-goodies
 
 - name: Install common desktop packages
-  apt:
+  ansible.builtin.apt:
    name:
     - keepassxc
     - qpdfview
@@ -21,12 +21,12 @@
 
 # no longer install chromium as it's outdated on debian
 - name: Install browser packages
-  apt:
+  ansible.builtin.apt:
    name:
     - firefox-esr
 
 - name: Install utility packages
-  apt:
+  ansible.builtin.apt:
    name:
     - firejail
     - gnome-disk-utility
@@ -46,7 +46,7 @@
     - locales
 
 - name: Install networking packages
-  apt:
+  ansible.builtin.apt:
    name:
     - freerdp2-x11
     - openssh-server
@@ -54,7 +54,7 @@
     - network-manager-gnome
 
 - name: Install automation packages
-  apt:
+  ansible.builtin.apt:
    name:
     - libssl-dev
     # https://github.com/MeetMe/newrelic-plugin-agent/issues/151
@@ -65,7 +65,7 @@
     - vagrant-libvirt
 
 - name: Install media related packages
-  apt:
+  ansible.builtin.apt:
    name:
     - vlc
     - smplayer
@@ -74,13 +74,13 @@
     - pavucontrol
 
 - name: Install printing related packages
-  apt:
+  ansible.builtin.apt:
    name:
     - cups
     - xsane
 
 - name: Install libreoffice
-  apt:
+  ansible.builtin.apt:
    name:
     - libreoffice
     - libreoffice-style-colibre
@@ -93,7 +93,7 @@
    install_recommends: 'yes'
 
 - name: Install image and video editing related packages
-  apt:
+  ansible.builtin.apt:
    name:
     - obs-studio
     - krita
@@ -101,7 +101,7 @@
     - kolourpaint4
 
 - name: Install KVM/qemu packages with virt-manager
-  apt:
+  ansible.builtin.apt:
    name:
     - virt-manager
     - libvirt-daemon
@@ -110,15 +110,15 @@
     - ovmf
 
 - name: Remove certain packages
-  apt:
+  ansible.builtin.apt:
    name:
     - laptop-mode-tools
     - gnome-keyring
    state: absent
    autoremove: yes
 
-- name: add user to libvirt group
-  user:
+- name: Add user to libvirt group
+  ansible.builtin.user:
    name: "{{ user }}"
    groups: libvirt
    append: yes
@@ -126,7 +126,7 @@
    state: present
 
 - name: Disable libreoffice logo and eula display
-  template:
+  ansible.builtin.template:
    src: templates/sofficerc.j2
    dest: /etc/libreoffice/sofficerc
    owner: root
@@ -134,8 +134,8 @@
    mode: 0644
    backup: yes
 
-- name: create modprobe blacklist file to blacklist mei modules
-  template:
+- name: Create modprobe blacklist file to blacklist mei modules
+  ansible.builtin.template:
    src: templates/blacklist.conf.j2
    dest: /etc/modprobe.d/blacklist.conf
    owner: root
@@ -143,8 +143,8 @@
    mode: 0644
    backup: yes
 
-- name: ignore uas mod for seagate 8tb smr externals
-  template:
+- name: Ignore uas mod for seagate 8tb smr externals
+  ansible.builtin.template:
    src: templates/ignore_uas.conf.j2
    dest: /etc/modprobe.d/ignore_uas.conf
    owner: root
@@ -153,8 +153,8 @@
    backup: yes
 
 # systemd boot/shutdown timeout settings
-- name: systemd boot/shutdown timeout settings
-  template:
+- name: Systemd boot/shutdown timeout settings
+  ansible.builtin.template:
    src: templates/system.conf.j2
    dest: /etc/systemd/system.conf
    owner: root
@@ -163,8 +163,8 @@
    backup: yes
 
 # network config
-- name: create blank network interfaces file with backup
-  copy:
+- name: Create blank network interfaces file with backup
+  ansible.builtin.copy:
    src: files/interfaces.conf
    dest: /etc/network/interfaces
    owner: root
@@ -173,8 +173,8 @@
    backup: yes
 
 # conf locales
-- name: template /etc/locale.gen
-  template:
+- name: Template /etc/locale.gen
+  ansible.builtin.template:
    src: templates/locale.gen.j2
    dest: /etc/locale.gen
    owner: root

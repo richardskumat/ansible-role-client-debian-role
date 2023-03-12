@@ -1,18 +1,18 @@
 ---
 
 - name: Include overrides specific to Debian
-  include_tasks: "{{ ansible_distribution }}.yml"
+  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
   when:
     - ansible_distribution == 'Debian'
 
-- name: include tasks specific to desktop pc
-  include_tasks: desktop.yml
+- name: Include tasks specific to desktop pc
+  ansible.builtin.include_tasks: desktop.yml
   when:
     - form_factor == 'desktop'
     - not form_factor == 'laptop'
 
-- name: include tasks specific to laptop pc
-  include_tasks: laptop.yml
+- name: Include tasks specific to laptop pc
+  ansible.builtin.include_tasks: laptop.yml
   when:
     - form_factor == 'laptop'
     - not form_factor == 'desktop'
