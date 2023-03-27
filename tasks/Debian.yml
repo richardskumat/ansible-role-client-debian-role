@@ -109,14 +109,6 @@
     # useful for gpu passthrough
     - ovmf
 
-- name: Remove certain packages
-  ansible.builtin.apt:
-   name:
-    - laptop-mode-tools
-    - gnome-keyring
-   state: absent
-   autoremove: yes
-
 - name: Add user to libvirt group
   ansible.builtin.user:
    name: "{{ user }}"
@@ -129,24 +121,6 @@
   ansible.builtin.template:
    src: templates/sofficerc.j2
    dest: /etc/libreoffice/sofficerc
-   owner: root
-   group: root
-   mode: 0644
-   backup: yes
-
-- name: Create modprobe blacklist file to blacklist mei modules
-  ansible.builtin.template:
-   src: templates/blacklist.conf.j2
-   dest: /etc/modprobe.d/blacklist.conf
-   owner: root
-   group: root
-   mode: 0644
-   backup: yes
-
-- name: Ignore uas mod for seagate 8tb smr externals
-  ansible.builtin.template:
-   src: templates/ignore_uas.conf.j2
-   dest: /etc/modprobe.d/ignore_uas.conf
    owner: root
    group: root
    mode: 0644

@@ -9,7 +9,7 @@
 
 # then update initframs file
 - name: Update initframs
-  ansible.builtin.command: update-initramfs -u -k all
+  ansible.builtin.command:
   when: initframs_results.changed
   listen: "update-initframs"
 
