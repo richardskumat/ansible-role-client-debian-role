@@ -108,6 +108,9 @@
     # ovmf provides support for uefi booting vm-s
     # useful for gpu passthrough
     - ovmf
+    # for .ova image imports for kvm
+    # https://www.redhat.com/en/blog/importing-vms-kvm-virt-v2v
+    - virt-v2v
 
 - name: Add user to libvirt group
   ansible.builtin.user:
